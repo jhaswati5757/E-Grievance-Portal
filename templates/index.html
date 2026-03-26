@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row align-items-center mt-5 pt-5">
+    <div class="col-md-6">
+        <h1 class="display-4 fw-bold text-primary">Welcome to <br>E-Grievance Portal</h1>
+        <p class="lead mt-3">A completely transparent and fast way to submit, track, and resolve college grievances securely. Built for students and employees.</p>
+        <div class="mt-4">
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg shadow-sm">Students Register Here</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg ms-2">Login</a>
+        </div>
+    </div>
+    <div class="col-md-6 text-center text-md-end mt-4 mt-md-0">
+        <h1 style="font-size: 10rem;">🎓</h1>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+    <h2 class="fw-bold text-primary">Student Dashboard</h2>
+    <a href="{{ url_for('submit_complaint') }}" class="btn btn-success shadow-sm">📝 Submit New Complaint</a>
+</div>
+
+<h4 class="mb-3 text-muted">My Complaints History</h4>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Complaint ID</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Date Submitted</th>
+                        <th>Current Status</th>
+                        <th>Admin Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in complaints %}
+                    <tr>
+                        <td class="fw-bold text-primary">#{{ c.complaint_id }}</td>
+                        <td><span class="badge bg-secondary">{{ c.category }}</span></td>
+                        <td>{{ c.description }}</td>
+                        <!-- Check if created_at exists and is a datetime object -->
+                        <td>{{ c.created_at.strftime('%Y-%m-%d %H:%M') if c.created_at and c.created_at.strftime else c.created_at }}</td>
+                        <td>
+                            {% if c.status == 'Pending' %}
+                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm">Pending</span>
+                            {% elif c.status == 'In Process' %}
+                                <span class="badge bg-info text-dark px-3 py-2 rounded-pill shadow-sm">In Process</span>
+                            {% else %}
+                                <span class="badge bg-success px-3 py-2 rounded-pill shadow-sm">Resolved</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-muted fst-italic">{{ c.remarks if c.remarks else 'No remarks yet.' }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">Aapne abhi tak koi complaint submit nahi ki hai. Click the green button above to start!</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
